@@ -5,10 +5,12 @@
  */
 namespace AjaxFormValidationBundle\Controller;
 
+use AjaxFormValidationBundle\Form\CityForm;
 use AjaxFormValidationBundle\Form\GenderForm;
 use AjaxFormValidationBundle\Form\NameForm;
 use AjaxFormValidationBundle\Form\PhoneForm;
 use AjaxFormValidationBundle\Form\PostCodeForm;
+use AjaxFormValidationBundle\Form\StreetForm;
 use AjaxFormValidationBundle\Form\UrlForm;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,8 +33,6 @@ class AjaxValidatorController extends Controller
 	 */
 	public function indexAction(Request $request, $type)
 	{
-		$conf = $this->get('validator.configs');
-
 		switch ($type)
 		{
 			case 'gender':
@@ -50,6 +50,12 @@ class AjaxValidatorController extends Controller
 				break;
 			case 'url':
 				$form = $this->createForm(UrlForm::class);
+				break;
+			case 'city':
+				$form = $this->createForm(CityForm::class);
+				break;
+			case 'street':
+				$form = $this->createForm(StreetForm::class);
 				break;
 			default:
 				throw new Exception(sprintf('Unrecognized field type `%s`', $type));

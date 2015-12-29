@@ -39,3 +39,17 @@ services:
             - '%locale%'
         tags:
             - { name: 'form.type', alias: url }
+    validator.form.type.city:
+        class: AjaxFormValidationBundle\Form\CityForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: city }
+    validator.form.type.street:
+        class: AjaxFormValidationBundle\Form\StreetForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: street }
