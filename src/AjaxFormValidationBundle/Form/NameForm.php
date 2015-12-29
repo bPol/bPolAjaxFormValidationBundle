@@ -50,7 +50,7 @@ class NameForm extends BaseValidatorForm
 						}
 					}),
 				],
-				'invalid_message' => 'this_value_is_not_valid',
+				'invalid_message' => 'this_is_not_valid_name',
 			]);
 	}
 
