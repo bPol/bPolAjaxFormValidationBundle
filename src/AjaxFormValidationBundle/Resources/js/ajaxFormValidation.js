@@ -15,7 +15,7 @@ var ajaxValidator = (function() {
         };
 
         if ('confirm' == type) {
-            $passwords = $this.parent('form').find('input[type="password"]');
+            $passwords = $this.parents('form').find('input[type="password"]');
             data['password']  = $passwords.eq(0).val();
             data['confirm'] = $passwords.eq(1).val();
         }
