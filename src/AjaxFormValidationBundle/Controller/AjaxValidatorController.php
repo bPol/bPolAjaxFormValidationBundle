@@ -9,6 +9,7 @@ use AjaxFormValidationBundle\Form\CityForm;
 use AjaxFormValidationBundle\Form\EmailForm;
 use AjaxFormValidationBundle\Form\GenderForm;
 use AjaxFormValidationBundle\Form\NameForm;
+use AjaxFormValidationBundle\Form\PasswordConfirmForm;
 use AjaxFormValidationBundle\Form\PasswordForm;
 use AjaxFormValidationBundle\Form\PhoneForm;
 use AjaxFormValidationBundle\Form\PostCodeForm;
@@ -65,19 +66,35 @@ class AjaxValidatorController extends Controller
 			case 'password':
 				$form = $this->createForm(PasswordForm::class);
 				break;
+			case 'confirm':
+				$form = $this->createForm(PasswordConfirmForm::class);
+				break;
 			default:
 				throw new Exception(sprintf('Unrecognized field type `%s`', $type));
 				break;
 		}
 
-		/** @var Form $form */
-		$form->submit([
-			'value' => $request->get('value'),
-		]);
+		if ('confirm' == $type)
+		{
+			/** @var Form $form */
+			$form->submit([
+				'value'  => [
+					'password' => $request->get('password'),
+					'confirm'  => $request->get('confirm'),
+				]
+			]);
+		}
+		else
+		{
+			/** @var Form $form */
+			$form->submit([
+				'value' => $request->get('value'),
+			]);
+		}
 
 		if ($form->isValid())
 		{
-			return new JsonResponse;
+			return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 		}
 
 		return new JsonResponse([
@@ -85,7 +102,7 @@ class AjaxValidatorController extends Controller
 			{
 				return $error->getMessage();
 			}, iterator_to_array($form->getErrors(true))),
-		], Response::HTTP_BAD_REQUEST);
+		], Response::HTTP_OK);
 	}
 
 }

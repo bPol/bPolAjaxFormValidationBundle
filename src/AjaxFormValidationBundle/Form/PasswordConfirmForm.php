@@ -8,11 +8,12 @@ namespace AjaxFormValidationBundle\Form;
 
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class PasswordForm extends BaseValidatorForm
+class PasswordConfirmForm extends BaseValidatorForm
 {
 
 	/** @var string */
@@ -38,7 +39,9 @@ class PasswordForm extends BaseValidatorForm
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('value', PasswordType::class, [
+			->add('value', RepeatedType::class, [
+				'first_name'  => 'password',
+				'second_name' => 'confirm',
 				'constraints' => [
 					new Length([
 						'min' => (int) $this->config->getFormat('passwordLength'),
@@ -46,7 +49,7 @@ class PasswordForm extends BaseValidatorForm
 					]),
 					new NotBlank,
 				],
-				'invalid_message' => 'password_is_too_short',
+				'invalid_message' => 'passwords_are_different',
 			])
 		;
 	}

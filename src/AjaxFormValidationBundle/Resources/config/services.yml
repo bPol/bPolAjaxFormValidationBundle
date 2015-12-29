@@ -53,3 +53,10 @@ services:
             - '%locale%'
         tags:
             - { name: 'form.type', alias: password }
+    validator.form.type.password_confirm:
+        class: AjaxFormValidationBundle\Form\PasswordConfirmForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: password_confirm }
