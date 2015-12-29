@@ -4,13 +4,6 @@ services:
         arguments:
             - ~
             - %locale%
-    validator.form.type.name:
-        class: AjaxFormValidationBundle\Form\NameForm
-        arguments:
-            - '@validator.configs'
-            - '%locale%'
-        tags:
-            - { name: 'form.type', alias: name }
     validator.form.type.gender:
         class: AjaxFormValidationBundle\Form\GenderForm
         arguments:

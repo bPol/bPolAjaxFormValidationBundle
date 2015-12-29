@@ -1,7 +1,7 @@
 <?php
 /**
- * Date: 28.12.15
- * Time: 11:58
+ * Date: 29.12.15
+ * Time: 08:22
  */
 
 namespace AjaxFormValidationBundle\Form;
@@ -12,9 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class NameForm extends BaseValidatorForm
+class EmailForm extends BaseValidatorForm
 {
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -25,14 +24,15 @@ class NameForm extends BaseValidatorForm
 				'constraints' => [
 					new Callback(function($value, ExecutionContextInterface $context)
 					{
-						if (!preg_match("/^[\p{L}\ ]+$/u", $value))
+						if (!filter_var($value, FILTER_VALIDATE_EMAIL))
 						{
-							$context->buildViolation('this_is_not_valid_name')
-								->addViolation();
+							$context
+								->buildViolation('email_address_has_not_valid_format')
+						        ->addViolation();
 						}
 					}),
 				],
-				'invalid_message' => 'this_is_not_valid_name',
+				'invalid_message' => 'email_address_has_not_valid_format',
 			]);
 	}
 
@@ -42,17 +42,5 @@ class NameForm extends BaseValidatorForm
 	public function getName()
 	{
 		return 'validator';
-	}
-
-	/**
-	 * @param string $locale
-	 *
-	 * @return $this
-	 */
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-
-		return $this;
 	}
 }

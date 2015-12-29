@@ -6,6 +6,7 @@
 namespace AjaxFormValidationBundle\Controller;
 
 use AjaxFormValidationBundle\Form\CityForm;
+use AjaxFormValidationBundle\Form\EmailForm;
 use AjaxFormValidationBundle\Form\GenderForm;
 use AjaxFormValidationBundle\Form\NameForm;
 use AjaxFormValidationBundle\Form\PhoneForm;
@@ -56,6 +57,9 @@ class AjaxValidatorController extends Controller
 				break;
 			case 'street':
 				$form = $this->createForm(StreetForm::class);
+				break;
+			case 'email':
+				$form = $this->createForm(EmailForm::class);
 				break;
 			default:
 				throw new Exception(sprintf('Unrecognized field type `%s`', $type));
