@@ -43,13 +43,13 @@ var ajaxValidator = (function() {
         $('input[data-validator]').on('keyup blur focus', function() {
 
             clearTimeout(timeout);
-            timeout = setTimeout(validatorQuery($(this)), 300);
+            timeout = setTimeout(validatorQuery($(this)), 400);
         });
 
         $('select[data-validator]').on('change blur focus', function() {
 
             clearTimeout(timeout);
-            timeout = setTimeout(validatorQuery($(this)), 300);
+            timeout = setTimeout(validatorQuery($(this)), 400);
         });
     });
 

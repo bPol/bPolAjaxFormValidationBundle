@@ -9,6 +9,7 @@ use AjaxFormValidationBundle\Form\CityForm;
 use AjaxFormValidationBundle\Form\EmailForm;
 use AjaxFormValidationBundle\Form\GenderForm;
 use AjaxFormValidationBundle\Form\NameForm;
+use AjaxFormValidationBundle\Form\PasswordForm;
 use AjaxFormValidationBundle\Form\PhoneForm;
 use AjaxFormValidationBundle\Form\PostCodeForm;
 use AjaxFormValidationBundle\Form\StreetForm;
@@ -60,6 +61,9 @@ class AjaxValidatorController extends Controller
 				break;
 			case 'email':
 				$form = $this->createForm(EmailForm::class);
+				break;
+			case 'password':
+				$form = $this->createForm(PasswordForm::class);
 				break;
 			default:
 				throw new Exception(sprintf('Unrecognized field type `%s`', $type));

@@ -46,3 +46,10 @@ services:
             - '%locale%'
         tags:
             - { name: 'form.type', alias: street }
+    validator.form.type.password:
+        class: AjaxFormValidationBundle\Form\PasswordForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: password }

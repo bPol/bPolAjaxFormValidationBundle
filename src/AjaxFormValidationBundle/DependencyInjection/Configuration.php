@@ -36,6 +36,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('url')->end()
                             ->scalarNode('city')->end()
                             ->scalarNode('street')->end()
+                            ->scalarNode('passwordLength')->end()
                         ->end()
                     ->end()
                 ->end()
