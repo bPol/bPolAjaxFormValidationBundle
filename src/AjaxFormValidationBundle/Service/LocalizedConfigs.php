@@ -40,7 +40,12 @@ class LocalizedConfigs
             $locale = 'default';
         }
 
-        return $this->config['formats'][$locale][$field];
+        if (isset($this->config['formats'][$locale][$field]))
+        {
+            return $this->config['formats'][$locale][$field];
+        }
+
+        return $this->config['formats']['default'][$field];
     }
 
 
