@@ -34,6 +34,8 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('postCode')->end()
                             ->scalarNode('phone')->end()
                             ->scalarNode('url')->end()
+                            ->scalarNode('city')->end()
+                            ->scalarNode('street')->end()
                         ->end()
                     ->end()
                 ->end()
