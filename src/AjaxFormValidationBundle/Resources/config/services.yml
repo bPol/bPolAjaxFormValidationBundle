@@ -1,0 +1,41 @@
+services:
+    validator.configs:
+        class: AjaxFormValidationBundle\Service\LocalizedConfigs
+        arguments:
+            - ~
+            - %locale%
+    validator.form.type.name:
+        class: AjaxFormValidationBundle\Form\NameForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: name }
+    validator.form.type.gender:
+        class: AjaxFormValidationBundle\Form\GenderForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: gender }
+    validator.form.type.post_code:
+        class: AjaxFormValidationBundle\Form\PostCodeForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: postCode }
+    validator.form.type.phone:
+        class: AjaxFormValidationBundle\Form\PhoneForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: phone }
+    validator.form.type.url:
+        class: AjaxFormValidationBundle\Form\UrlForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+        tags:
+            - { name: 'form.type', alias: url }

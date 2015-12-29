@@ -1,0 +1,7 @@
+ajax_form_validator:
+    path: /ajax/form/validator/{type}
+    defaults:
+        _controller: AjaxFormValidationBundle:AjaxValidator:index
+    methods: post
+    requirements:
+        type: '[a-z\-]+'
