@@ -9,6 +9,7 @@ namespace AjaxFormValidationBundle\Form;
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -21,15 +22,20 @@ class PostCodeForm extends BaseValidatorForm
 	/** @var LocalizedConfigs */
 	private $config;
 
+	/** @var TranslatorInterface */
+	private $translator;
+
 
 	/**
 	 * @param LocalizedConfigs $config
 	 * @param $locale
+	 * @param TranslatorInterface $translator
 	 */
-	public function __construct(LocalizedConfigs $config, $locale)
+	public function __construct(LocalizedConfigs $config, $locale, TranslatorInterface $translator)
 	{
 		$this->config = $config;
 		$this->locale = $locale;
+		$this->translator = $translator;
 	}
 
 
@@ -46,12 +52,12 @@ class PostCodeForm extends BaseValidatorForm
 						if (!preg_match("/^" . $this->config->getFormat('postCode') . "$/u", $value))
 						{
 							$context
-								->buildViolation('this_is_not_valid_post_code')
+								->buildViolation($this->translator->trans('this_is_not_valid_post_code'))
 						        ->addViolation();
 						}
 					}),
 				],
-				'invalid_message' => 'this_is_not_valid_post_code',
+				'invalid_message' => $this->translator->trans('this_is_not_valid_post_code'),
 			]);
 	}
 

@@ -9,11 +9,34 @@ namespace AjaxFormValidationBundle\Form;
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class NameForm extends BaseValidatorForm
 {
+
+	/** @var string */
+	private $locale;
+
+	/** @var LocalizedConfigs */
+	private $config;
+
+	/** @var TranslatorInterface */
+	private $translator;
+
+
+	/**
+	 * @param LocalizedConfigs $config
+	 * @param $locale
+	 * @param TranslatorInterface $translator
+	 */
+	public function __construct(LocalizedConfigs $config, $locale, TranslatorInterface $translator)
+	{
+		$this->config = $config;
+		$this->locale = $locale;
+		$this->translator = $translator;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -27,12 +50,12 @@ class NameForm extends BaseValidatorForm
 					{
 						if (!preg_match("/^[\p{L}\ ]+$/u", $value))
 						{
-							$context->buildViolation('this_is_not_valid_name')
+							$context->buildViolation($this->translator->trans('this_is_not_valid_name'))
 								->addViolation();
 						}
 					}),
 				],
-				'invalid_message' => 'this_is_not_valid_name',
+				'invalid_message' => $this->translator->trans('this_is_not_valid_name'),
 			]);
 	}
 

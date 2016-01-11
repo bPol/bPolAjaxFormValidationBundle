@@ -9,6 +9,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: gender }
     validator.form.type.post_code:
@@ -16,6 +17,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: postCode }
     validator.form.type.phone:
@@ -23,6 +25,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: phone }
     validator.form.type.url:
@@ -30,6 +33,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: url }
     validator.form.type.city:
@@ -37,6 +41,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: city }
     validator.form.type.street:
@@ -44,6 +49,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: street }
     validator.form.type.password:
@@ -51,6 +57,7 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: password }
     validator.form.type.password_confirm:
@@ -58,5 +65,14 @@ services:
         arguments:
             - '@validator.configs'
             - '%locale%'
+            - '@translator'
         tags:
             - { name: 'form.type', alias: password_confirm }
+    validator.form.type.name:
+        class: AjaxFormValidationBundle\Form\NameForm
+        arguments:
+            - '@validator.configs'
+            - '%locale%'
+            - '@translator'
+        tags:
+            - { name: 'form.type', alias: name }

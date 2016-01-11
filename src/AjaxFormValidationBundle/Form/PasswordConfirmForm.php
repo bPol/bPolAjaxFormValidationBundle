@@ -7,9 +7,9 @@
 namespace AjaxFormValidationBundle\Form;
 
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -22,15 +22,20 @@ class PasswordConfirmForm extends BaseValidatorForm
 	/** @var LocalizedConfigs */
 	private $config;
 
+	/** @var TranslatorInterface */
+	private $translator;
+
 
 	/**
 	 * @param LocalizedConfigs $config
 	 * @param $locale
+	 * @param TranslatorInterface $translator
 	 */
-	public function __construct(LocalizedConfigs $config, $locale)
+	public function __construct(LocalizedConfigs $config, $locale, TranslatorInterface $translator)
 	{
 		$this->config = $config;
 		$this->locale = $locale;
+		$this->translator = $translator;
 	}
 
 	/**
@@ -45,11 +50,11 @@ class PasswordConfirmForm extends BaseValidatorForm
 				'constraints' => [
 					new Length([
 						'min' => (int) $this->config->getFormat('passwordLength'),
-						'minMessage' => 'password_is_too_short',
+						'minMessage' => $this->translator->trans('password_is_too_short'),
 					]),
 					new NotBlank,
 				],
-				'invalid_message' => 'passwords_are_different',
+				'invalid_message' => $this->translator->trans('passwords_are_different'),
 			])
 		;
 	}

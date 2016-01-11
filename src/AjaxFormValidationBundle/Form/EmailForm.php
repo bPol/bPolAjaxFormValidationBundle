@@ -9,11 +9,34 @@ namespace AjaxFormValidationBundle\Form;
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class EmailForm extends BaseValidatorForm
 {
+	/** @var string */
+	private $locale;
+
+	/** @var LocalizedConfigs */
+	private $config;
+
+	/** @var TranslatorInterface */
+	private $translator;
+
+
+	/**
+	 * @param LocalizedConfigs $config
+	 * @param $locale
+	 * @param TranslatorInterface $translator
+	 */
+	public function __construct(LocalizedConfigs $config, $locale, TranslatorInterface $translator)
+	{
+		$this->config = $config;
+		$this->locale = $locale;
+		$this->translator = $translator;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -27,12 +50,12 @@ class EmailForm extends BaseValidatorForm
 						if (!filter_var($value, FILTER_VALIDATE_EMAIL))
 						{
 							$context
-								->buildViolation('email_address_has_not_valid_format')
+								->buildViolation($this->translator->trans('email_address_has_not_valid_format'))
 						        ->addViolation();
 						}
 					}),
 				],
-				'invalid_message' => 'email_address_has_not_valid_format',
+				'invalid_message' => $this->translator->trans('email_address_has_not_valid_format'),
 			]);
 	}
 

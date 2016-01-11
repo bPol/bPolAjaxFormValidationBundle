@@ -9,6 +9,7 @@ namespace AjaxFormValidationBundle\Form;
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -21,15 +22,20 @@ class UrlForm extends BaseValidatorForm
 	/** @var LocalizedConfigs */
 	private $config;
 
+	/** @var TranslatorInterface */
+	private $translator;
+
 
 	/**
 	 * @param LocalizedConfigs $config
 	 * @param $locale
+	 * @param TranslatorInterface $translator
 	 */
-	public function __construct(LocalizedConfigs $config, $locale)
+	public function __construct(LocalizedConfigs $config, $locale, TranslatorInterface $translator)
 	{
 		$this->config = $config;
 		$this->locale = $locale;
+		$this->translator = $translator;
 	}
 
 
@@ -46,12 +52,12 @@ class UrlForm extends BaseValidatorForm
 						if (!preg_match("/^" . $this->config->getFormat('url') . "$/u", $value))
 						{
 							$context
-								->buildViolation('url_has_not_valid')
+								->buildViolation($this->translator->trans('url_has_not_valid'))
 						        ->addViolation();
 						}
 					}),
 				],
-				'invalid_message' => 'url_has_not_valid',
+				'invalid_message' => $this->translator->trans('url_has_not_valid'),
 			]);
 	}
 

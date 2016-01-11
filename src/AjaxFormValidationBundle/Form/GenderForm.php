@@ -9,6 +9,7 @@ namespace AjaxFormValidationBundle\Form;
 use AjaxFormValidationBundle\Service\LocalizedConfigs;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class GenderForm extends BaseValidatorForm
 {
@@ -19,15 +20,20 @@ class GenderForm extends BaseValidatorForm
 	/** @var LocalizedConfigs */
 	private $config;
 
+	/** @var TranslatorInterface */
+	private $translator;
+
 
 	/**
 	 * @param LocalizedConfigs $config
 	 * @param $locale
+	 * @param TranslatorInterface $translator
 	 */
-	public function __construct(LocalizedConfigs $config, $locale)
+	public function __construct(LocalizedConfigs $config, $locale, TranslatorInterface $translator)
 	{
 		$this->config = $config;
 		$this->locale = $locale;
+		$this->translator = $translator;
 	}
 
 	/**
@@ -41,7 +47,7 @@ class GenderForm extends BaseValidatorForm
 					'f' => 'female',
 					'm' => 'male',
 				],
-				'invalid_message' => 'this_value_is_not_valid',
+				'invalid_message' => $this->translator->trans('this_value_is_not_valid'),
 			]);
 	}
 
